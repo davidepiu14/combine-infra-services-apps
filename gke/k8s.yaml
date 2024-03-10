@@ -26,6 +26,7 @@ metadata:
   name: gke-managed-resources-nodepool
 spec:
   forProvider:
+    location: us-central1
     clusterSelector:
       matchLabels:
         cluster_name: gke
