@@ -1,35 +1,37 @@
-apiVersion: container.gcp.crossplane.io/v1beta1
-kind: GKECluster
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
 metadata:
-  name: devops-toolkit
+  labels:
+    cluster_name: gke
+  name: gke-managed-resources
 spec:
   forProvider:
-    location: us-east1
-    initialClusterVersion: latest
-
----
-
-apiVersion: container.gcp.crossplane.io/v1alpha1
-kind: NodePool
-metadata:
-  name: devops-toolkit
-spec:
-  forProvider:
-    locations:
-    - us-east1-b
-    - us-east1-c
-    - us-east1-d
-    clusterRef:
-      name: devops-toolkit
+    enableAutopilot: false
+    enableIntranodeVisibility: true
+    ipAllocationPolicy:
+      - {}
     initialNodeCount: 1
-    config:
-      preemptible: true
-      machineType: e2-standard-2
-      oauthScopes:
-      - https://www.googleapis.com/auth/cloud-platform
-    autoscaling:
-      enabled: true
-      minNodeCount: 1
-      maxNodeCount: 2
-    management:
-      autoUpgrade: false
+    location: us-east1
+    removeDefaultNodePool: true
+  writeConnectionSecretToRef:
+    name: gke-managed-resources-kubeconfig
+    namespace: upbound-system
+---
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  labels:
+    cluster_name: gke
+  name: gke-managed-resources
+spec:
+  forProvider:
+    enableAutopilot: false
+    enableIntranodeVisibility: true
+    ipAllocationPolicy:
+      - {}
+    initialNodeCount: 1
+    location:  us-east1
+    removeDefaultNodePool: true
+  writeConnectionSecretToRef:
+    name: gke-managed-resources-kubeconfig
+    namespace: upbound-system
