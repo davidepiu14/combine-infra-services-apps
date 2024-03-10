@@ -16,10 +16,3 @@ spec:
       containers:
       - name: devops-toolkit
         image: vfarcic/devops-toolkit-series
-        resources:
-          limits:
-            cpu: 50m
-            memory: 2Gi
-          requests:
-            cpu: 50m
-            memory: 1Gi
