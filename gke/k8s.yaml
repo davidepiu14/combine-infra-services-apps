@@ -6,6 +6,7 @@ metadata:
   name: gke-managed-resources
 spec:
   forProvider:
+    location: us-central1
     enableAutopilot: false
     enableIntranodeVisibility: true
     ipAllocationPolicy:
