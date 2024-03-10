@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: argocd-server
+spec:
+ template:
+   spec:
+     containers:
+     - args:
+       - /usr/local/bin/argocd-server
+       - --staticassets
+       - /shared/app
+       - --insecure
+       name: argocd-server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
